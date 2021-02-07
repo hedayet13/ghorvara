@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ghorvara/chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,6 +10,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -27,8 +31,32 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("GhorVara"),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        child: Container(
+          child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Come on"),
+                  Text("In ghorvara"),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Write data"
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Write data"
+                    ),
+                  ),
+                  RaisedButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>chart()));
+                  },
+                  child: Text("Lets put your data"),)
+            ],
+          )),
+        ),
       ),
     );
   }
