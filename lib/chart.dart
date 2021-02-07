@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class chart extends StatefulWidget {
   @override
@@ -8,10 +9,29 @@ class chart extends StatefulWidget {
 
 class _chartState extends State<chart> {
 
-  final rentController = TextEditingController();
-  final currentBillController = TextEditingController();
-  final gasBillController = TextEditingController();
-  final waterBillController = TextEditingController();
+  var rent = 0, current = 0, gas=0 , water = 0 ;
+  double sum =0;
+  double totalCurrent= 0;
+  final rentController = TextEditingController(text: "0");
+  final currentBillController = TextEditingController(text: "0");
+  final gasBillController = TextEditingController(text: "0");
+  final waterBillController = TextEditingController(text: "0");
+
+  void addition(){
+    setState(() {
+      rent = int.parse(rentController.text);
+      current = int.parse(currentBillController.text);
+      totalCurrent = current * 5.50;
+      gas = int.parse(gasBillController.text);
+      water = int.parse(waterBillController.text);
+
+      sum =rent+totalCurrent+gas+water;
+      sum= double.parse(sum.toStringAsFixed(3));
+
+
+    });
+  }
+
 
 
   @override
@@ -24,12 +44,13 @@ class _chartState extends State<chart> {
         ),
         centerTitle: true,
         backgroundColor: Colors.lightGreenAccent,
-        toolbarHeight: 200,
+        toolbarHeight: 300,
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(60, 30, 60, 0),
         child: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
                 controller: rentController,
@@ -55,17 +76,15 @@ class _chartState extends State<chart> {
               Padding(padding: EdgeInsets.only(top: 50),),
               // ignore: deprecated_member_use
               RaisedButton(onPressed: (){
+                addition();
                 return showDialog(context: context, builder: (context){
                   return AlertDialog(
-                    content: Text(rentController.text+currentBillController.text),
+                    content: Text("Your Total Rent is: $sum taka"),
                   );
                 });
               },
               child: Text("Total"),),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: "Total"),
-              ),
+
             ],
           ),
         ),

@@ -40,16 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Text("Come on"),
                   Text("In ghorvara"),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "Write data"
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "Write data"
-                    ),
-                  ),
+                  // ignore: deprecated_member_use
                   RaisedButton(onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>chart()));
                   },
