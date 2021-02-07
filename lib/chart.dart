@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class chart extends StatefulWidget {
@@ -10,6 +9,10 @@ class chart extends StatefulWidget {
 }
 
 class _chartState extends State<chart> {
+  bool _validateRent = false;
+  bool _validateCurrent = false;
+  bool _validateGas = false;
+  bool _validatewater = false;
   var rent = 0, current = 0, gas = 0, water = 0;
   double sum = 0;
   double totalCurrent = 0;
@@ -27,7 +30,7 @@ class _chartState extends State<chart> {
       water = int.parse(waterBillController.text);
 
       sum = rent + totalCurrent + gas + water;
-      sum = double.parse(sum.toStringAsFixed(3));
+
     });
   }
 
@@ -53,6 +56,7 @@ class _chartState extends State<chart> {
                 controller: rentController,
                 decoration: InputDecoration(
                     labelText: "House rent",
+                    errorText: _validateRent? "Can't be Empty":null,
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.house_outlined)),
                 keyboardType: TextInputType.number,
@@ -62,6 +66,7 @@ class _chartState extends State<chart> {
                 controller: currentBillController,
                 decoration: InputDecoration(
                     labelText: "Current bill (in unit)",
+                    errorText: _validateCurrent? "Can't be Empty":null,
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(MdiIcons.flash)),
                 keyboardType: TextInputType.number,
@@ -71,6 +76,7 @@ class _chartState extends State<chart> {
                 controller: gasBillController,
                 decoration: InputDecoration(
                     labelText: "Gasbill",
+                    errorText: _validateGas? "Can't be Empty":null,
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(MdiIcons.campfire)),
                 keyboardType: TextInputType.number,
@@ -80,6 +86,7 @@ class _chartState extends State<chart> {
                 controller: waterBillController,
                 decoration: InputDecoration(
                     labelText: "Water bill",
+                    errorText: _validatewater? "Can't be Empty. If no bill put 0":null,
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(MdiIcons.water)),
                 keyboardType: TextInputType.number,
@@ -88,23 +95,35 @@ class _chartState extends State<chart> {
                 padding: EdgeInsets.only(top: 50),
               ),
               // ignore: deprecated_member_use
-              RaisedButton(
-                onPressed: () {
-                  addition();
-                  return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text("Your Total Rent is: $sum taka"),
-                        );
-                      });
-                },
-                shape: StadiumBorder(),
-                child: Text(
-                  "Total",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+              SizedBox(
+                height: 60,
+                width: 200,
+                child: RaisedButton(
+                  hoverColor: Colors.black38,
+
+                  onPressed: () {
+                    setState(() {
+                      rentController.text.isEmpty ? _validateRent =true : _validateRent=false;
+                      currentBillController.text.isEmpty ? _validateCurrent =true : _validateCurrent=false;
+                      gasBillController.text.isEmpty ? _validateGas =true : _validateGas=false;
+                      waterBillController.text.isEmpty ? _validatewater  =true : _validatewater=false;
+                    });
+                    addition();
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text("Your Total Rent is: $sum taka"),
+                          );
+                        });
+                  },
+                  shape: StadiumBorder(),
+                  child: Text(
+                    "Total",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                  color: Colors.black,
                 ),
-                color: Colors.black,
               ),
             ],
           ),
