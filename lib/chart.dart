@@ -47,8 +47,9 @@ class _chartState extends State<chart> {
         toolbarHeight: 300,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(60, 30, 60, 0),
+        padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
         child: Container(
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -83,7 +84,7 @@ class _chartState extends State<chart> {
                   );
                 });
               },
-              child: Text("Total"),),
+              child: Text("Total"),color: Colors.lightGreenAccent,),
 
             ],
           ),

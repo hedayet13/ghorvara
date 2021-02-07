@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ghorvara/chart.dart';
@@ -32,21 +33,37 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
         child: Container(
-          child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Come on"),
-                  Text("In ghorvara"),
-                  // ignore: deprecated_member_use
-                  RaisedButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>chart()));
-                  },
-                  child: Text("Lets put your data"),)
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(padding: EdgeInsets.only(top: 250)),
+              Text("Welcome to",style: TextStyle(fontSize: 140,fontFamily: 'brownies_cake'),textAlign: TextAlign.left,),
+              Text("GHORVARA",style: TextStyle(fontSize: 90,fontFamily: 'brownies_cake',fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
+              Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 250)),
+                      // ignore: deprecated_member_use
+                      SizedBox(
+                        height: 60,
+                        width: 300,
+                        // ignore: deprecated_member_use
+                        child: RaisedButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>chart()));
+                        },
+
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                          ),
+                        child: Text("Lets put your data",style: TextStyle(fontSize: 30,fontWeight: FontWeight.normal,color: Colors.white),),
+                        color: Colors.black,),
+                      )
+                ],
+              )),
             ],
-          )),
+          ),
         ),
       ),
     );
