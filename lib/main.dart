@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -32,38 +33,67 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-        child: Container(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(padding: EdgeInsets.only(top: 250)),
-              Text("Welcome to",style: TextStyle(fontSize: 140,fontFamily: 'brownies_cake'),textAlign: TextAlign.left,),
-              Text("GHORVARA",style: TextStyle(fontSize: 90,fontFamily: 'brownies_cake',fontWeight: FontWeight.bold),textAlign: TextAlign.start,),
-              Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(padding: EdgeInsets.only(top: 250)),
-                      // ignore: deprecated_member_use
-                      SizedBox(
-                        height: 60,
-                        width: 300,
-                        // ignore: deprecated_member_use
-                        child: RaisedButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>chart()));
-                        },
-
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
-                          ),
-                        child: Text("Lets put your data",style: TextStyle(fontSize: 30,fontWeight: FontWeight.normal,color: Colors.white),),
-                        color: Colors.black,),
-                      )
+        child: Column(
+          children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(padding: EdgeInsets.only(top: 250)),
+                  Text(
+                    "Welcome to",
+                    style: TextStyle(
+                        fontSize: 140,
+                        fontFamily: 'brownies_cake',
+                        color: Colors.greenAccent),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    "GHORVARA",
+                    style: TextStyle(
+                        fontSize: 90,
+                        fontFamily: 'brownies_cake',
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
                 ],
-              )),
-            ],
-          ),
+              ),
+            ),
+            Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(padding: EdgeInsets.only(top: 250)),
+                // ignore: deprecated_member_use
+                SizedBox(
+                  height: 60,
+                  width: 300,
+                  // ignore: deprecated_member_use
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => chart()));
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Text(
+                      "Lets put your data",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'brownies_cake',
+                          color: Colors.black),
+                    ),
+                    color: Colors.greenAccent,
+                  ),
+                )
+              ],
+            )),
+          ],
         ),
       ),
     );
