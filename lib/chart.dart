@@ -16,6 +16,7 @@ class _chartState extends State<chart> {
   bool value2 = false;
 
   var rent = 0, current = 0, gas = 0, water = 0;
+  var stoveNum = 0;
   double sum = 0;
   double totalCurrent = 0;
 
@@ -135,7 +136,8 @@ class _chartState extends State<chart> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              content: Text("Your Total Rent is: $sum taka"),
+                              content: Text('''Number of stove = $stoveNum stove
+Total Rent is = $sum taka'''),
                             );
                           });
                     },
@@ -160,13 +162,11 @@ class _chartState extends State<chart> {
   }
 
   // ignore: non_constant_identifier_names
-  Widget Gas() {
+  Gas() {
     return Container(
       decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
       child: Row(
         children: [
-          Padding(padding: EdgeInsets.only(left: 10)),
-          Icon(MdiIcons.campfire),
           Padding(padding: EdgeInsets.only(left: 10)),
           Text("Gas Bill: "),
           Checkbox(
@@ -177,9 +177,14 @@ class _chartState extends State<chart> {
                   if (value1 == true) {
                     gas = 500;
                     value2 = false;
+                    stoveNum = 1;
+                  } else {
+                    gas = 0;
+                    stoveNum = 0;
                   }
                 });
               }),
+          Icon(MdiIcons.campfire),
           Text("Single Stove"),
           Checkbox(
               value: value2,
@@ -188,10 +193,16 @@ class _chartState extends State<chart> {
                   this.value2 = value2;
                   if (value2 == true) {
                     gas = 975;
+                    stoveNum = 2;
                     value1 = false;
+                  } else {
+                    gas = 0;
+                    stoveNum = 0;
                   }
                 });
               }),
+          Icon(MdiIcons.campfire),
+          Icon(MdiIcons.campfire),
           Text("Double Stove")
         ],
       ),
