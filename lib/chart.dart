@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ghorvara/currentChart.dart';
+import 'package:ghorvara/gaschart.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class chart extends StatefulWidget {
@@ -9,27 +11,17 @@ class chart extends StatefulWidget {
 
 class _chartState extends State<chart> {
   bool _validateRent = false;
-  bool _validateCurrent = false;
-  bool _validateGas = false;
+  // bool _validateGas = false;
   bool _validatewater = false;
-  bool _validateUnitPrice = false;
 
-  bool value1 = false;
-  bool value2 = false;
-  bool value3 = false;
-  bool currentValue1 = false;
-  bool currentValue2 = false;
+  var rent = 0, current = 0, water = 0;
 
-  var rent = 0, current = 0, gas = 0, water = 0;
-  var stoveNum = 0;
   double sum = 0;
   double totalCurrent = 0, currentUnit = 0;
 
   final rentController = TextEditingController();
-  final currentBillController = TextEditingController();
-  final gasBillController = TextEditingController();
   final waterBillController = TextEditingController(text: "0");
-  final unitPriceController = TextEditingController();
+  
 
   void addition() {
     setState(() {
@@ -106,7 +98,8 @@ class _chartState extends State<chart> {
                   keyboardType: TextInputType.number,
                 ),
                 Padding(padding: EdgeInsets.only(top: 10)),
-                Current(),
+        
+                CurrentChart(),
                 // TextFormField(
                 //   controller: currentBillController,
                 //   decoration: InputDecoration(
@@ -126,7 +119,7 @@ class _chartState extends State<chart> {
                 //       prefixIcon: Icon(MdiIcons.campfire)),
                 //   keyboardType: TextInputType.number,
                 // ),
-                Gas(),
+                GasChart(),
                 Padding(padding: EdgeInsets.only(top: 10)),
                 TextFormField(
                   controller: waterBillController,
@@ -156,17 +149,17 @@ class _chartState extends State<chart> {
                             ? _validateRent = true
                             : _validateRent = false;
                         currentBillController.text.isEmpty
-                            ? _validateCurrent = true
-                            : _validateCurrent = false;
-                        gasBillController.text.isEmpty
-                            ? _validateGas = true
-                            : _validateGas = false;
+                            ? validateCurrent = true
+                            : validateCurrent = false;
+                        // gasBillController.text.isEmpty
+                        //     ? _validateGas = true
+                        //     : _validateGas = false;
                         waterBillController.text.isEmpty
                             ? _validatewater = true
                             : _validatewater = false;
                         unitPriceController.text.isEmpty
-                            ? _validateUnitPrice = true
-                            : _validateUnitPrice = false;
+                            ? validateUnitPrice = true
+                            : validateUnitPrice = false;
                       });
                       addition();
                       return showDialog(
@@ -198,162 +191,8 @@ class _chartState extends State<chart> {
     );
   }
 
-  Current() {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black38),
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Padding(padding: EdgeInsets.only(left: 10)),
-              Text("Current Bill"),
-              Checkbox(
-                  value: currentValue1,
-                  activeColor: Colors.green,
-                  onChanged: (currentValue1) {
-                    setState(() {
-                      this.currentValue1 = currentValue1;
-                      if (currentValue1 == true) {
-                        // currentUnit = 5.50;
-                        currentValue2 = false;
-                        // stoveNum = 1;
-                      }
-                    });
-                  }),
-              Text("In units"),
-              Checkbox(
-                  value: currentValue2,
-                  activeColor: Colors.green,
-                  onChanged: (currentValue2) {
-                    setState(() {
-                      this.currentValue2 = currentValue2;
-                      if (currentValue2 = true) {
-                        currentValue1 = false;
-                        // print("Currentunit = 0");
-                        // stoveNum = 1;
-                      }
-                    });
-                  }),
-              Text("In Taka"),
-            ],
-          ),
-          if (currentValue1 == true)
-            Column(
-              children: [
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: unitPriceController,
-                  decoration: InputDecoration(
-                    labelText: "Per unit price",
-                    prefixIcon: Icon(Icons.directions),
-                    errorText: _validateUnitPrice ? "Can't be Empty" : null,
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 10)),
-              ],
-            ),
-          TextFormField(
-            controller: currentBillController,
-            decoration: InputDecoration(
-                labelText: "Current bill (in unit)",
-                errorText: _validateCurrent ? "Can't be Empty" : null,
-                prefixIcon: Icon(MdiIcons.flash)),
-            keyboardType: TextInputType.number,
-          ),
-        ],
-      ),
-    );
-  }
-
   // ignore: non_constant_identifier_names
-  Gas() {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.black38),
-          borderRadius: BorderRadius.all(Radius.circular(5))),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Padding(padding: EdgeInsets.only(left: 10)),
-              Text("Gas Bill: "),
-              Checkbox(
-                  value: value1,
-                  activeColor: Colors.green,
-                  onChanged: (value1) {
-                    setState(() {
-                      this.value1 = value1;
-                      if (value1 == true) {
-                        // gas = 925;
-                        value2 = false;
-                        value3 = false;
-                        stoveNum = 1;
-                      } else {
-                        // gas = 0;
-                        // stoveNum = 0;
-                      }
-                    });
-                  }),
-              Icon(MdiIcons.campfire),
-              Text("Single Stove"),
-              Checkbox(
-                  value: value2,
-                  activeColor: Colors.green,
-                  onChanged: (value2) {
-                    setState(() {
-                      this.value2 = value2;
-                      if (value2 == true) {
-                        gas = 975;
-                        stoveNum = 2;
-                        value1 = false;
-                        value3 = false;
-                      }
-                    });
-                  }),
-              Icon(MdiIcons.campfire),
-              Icon(MdiIcons.campfire),
-              Text("Double Stove")
-            ],
-          ),
-          Row(
-            children: [
-              Padding(padding: EdgeInsets.only(left: 55)),
-              Checkbox(
-                  value: value3,
-                  activeColor: Colors.green,
-                  onChanged: (value3) {
-                    setState(() {
-                      this.value3 = value3;
-                      if (value3 == true) {
-                        value1 = false;
-                        value2 = false;
-                        stoveNum = 0;
-                      }
-                    });
-                  }),
-              Text("Taka only"),
-              Padding(padding: EdgeInsets.only(left: 20)),
-              if (value3 == true)
-                Flexible(
-                  child: TextFormField(
-                    controller: gasBillController,
-                    decoration: InputDecoration(
-                        // labelText: "done",
-                        errorText: _validateGas ? "Can't be Empty" : null,
-                        border: OutlineInputBorder(),
-                        hintText: "Amount of taka"),
-                    keyboardType: TextInputType.number,
-                  ),
-                )
-            ],
-          )
-        ],
-      ),
-    );
-  }
+
 }
 
 //ToDo current bill value per unit taka or full value

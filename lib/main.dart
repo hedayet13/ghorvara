@@ -59,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.start,
-                    
                   ),
                 ],
               ),
