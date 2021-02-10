@@ -130,7 +130,17 @@ class _chartState extends State<chart> {
                               context: context,
                               initialDate: selectedDate,
                               firstDate: DateTime(2000),
-                              lastDate: DateTime(2030));
+                              lastDate: DateTime(2030),
+                              initialDatePickerMode: DatePickerMode.year,
+                              builder: (context, child) {
+                                return Theme(
+                                  child: child,
+                                  data: ThemeData.dark().copyWith(
+                                      colorScheme: ColorScheme.dark().copyWith(
+                                    primary: Colors.greenAccent,
+                                  )),
+                                );
+                              });
                           if (picked != null && picked != selectedDate)
                             setState(() {
                               selectedDate = picked;
