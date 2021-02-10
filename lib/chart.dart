@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ghorvara/currentChart.dart';
 import 'package:ghorvara/gaschart.dart';
+import 'package:intl/intl.dart';
 // import 'package:ghorvara/monthPickChart.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-DateTime selectedDate = DateTime.now();
 
 class chart extends StatefulWidget {
   @override
@@ -13,6 +12,8 @@ class chart extends StatefulWidget {
 }
 
 class _chartState extends State<chart> {
+  DateTime selectedDate = DateTime.now();
+
   bool _validateRent = false;
   // bool _validateGas = false;
   bool _validatewater = false;
@@ -22,7 +23,7 @@ class _chartState extends State<chart> {
   double sum = 0;
   double totalCurrent = 0, currentUnit = 0;
 
-  final rentController = TextEditingController();
+  final rentController = TextEditingController(text: "0");
   final waterBillController = TextEditingController(text: "0");
 
   void addition() {
@@ -65,6 +66,8 @@ class _chartState extends State<chart> {
 
   @override
   Widget build(BuildContext context) {
+    String _formatDate = new DateFormat.yMMMd().format(selectedDate);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -89,7 +92,7 @@ class _chartState extends State<chart> {
               mainAxisAlignment: MainAxisAlignment.center,
 //              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(padding: EdgeInsets.only(top: 100)),
+                Padding(padding: EdgeInsets.only(top: 50)),
                 // Text("${selectedDate.toLocal()}".split(' ')[0]),
                 Row(
                   children: [
@@ -116,7 +119,10 @@ class _chartState extends State<chart> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.calendar_today),
-                          hintText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                          // hintText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                          hintText:
+                              ("${_formatDate.split(' ')[0]} ${_formatDate.split(',')[1]}"),
+
                           // border: OutlineInputBorder(),
                         ),
                         onTap: () async {
