@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ghorvara/currentChart.dart';
 import 'package:ghorvara/gaschart.dart';
+// import 'package:ghorvara/monthPickChart.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+DateTime selectedDate = DateTime.now();
 
 class chart extends StatefulWidget {
   @override
@@ -21,7 +24,6 @@ class _chartState extends State<chart> {
 
   final rentController = TextEditingController();
   final waterBillController = TextEditingController(text: "0");
-  
 
   void addition() {
     setState(() {
@@ -80,7 +82,7 @@ class _chartState extends State<chart> {
         toolbarHeight: 200,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+        padding: const EdgeInsets.fromLTRB(60, 0, 60, 10),
         child: Container(
           child: SingleChildScrollView(
             child: Column(
@@ -88,6 +90,53 @@ class _chartState extends State<chart> {
 //              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(padding: EdgeInsets.only(top: 100)),
+                // Text("${selectedDate.toLocal()}".split(' ')[0]),
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              bottomRight: Radius.circular(20))),
+                      height: 30,
+                      width: 100,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Select date:",
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 20)),
+                    Flexible(
+                      child: TextFormField(
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.calendar_today),
+                          hintText: ("${selectedDate.toLocal()}".split(' ')[0]),
+                          // border: OutlineInputBorder(),
+                        ),
+                        onTap: () async {
+                          final DateTime picked = await showDatePicker(
+                              context: context,
+                              initialDate: selectedDate,
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2030));
+                          if (picked != null && picked != selectedDate)
+                            setState(() {
+                              selectedDate = picked;
+                            });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+
+                Padding(padding: EdgeInsets.only(top: 10)),
+                // CalenderChart(context),
                 TextFormField(
                   controller: rentController,
                   decoration: InputDecoration(
@@ -98,7 +147,7 @@ class _chartState extends State<chart> {
                   keyboardType: TextInputType.number,
                 ),
                 Padding(padding: EdgeInsets.only(top: 10)),
-        
+
                 CurrentChart(),
                 // TextFormField(
                 //   controller: currentBillController,

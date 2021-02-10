@@ -69,7 +69,7 @@ class _CurrentChartState extends State<CurrentChart> {
                   controller: unitPriceController,
                   decoration: InputDecoration(
                     labelText: "Per unit price",
-                    prefixIcon: Icon(Icons.directions),
+                    prefixIcon: Icon(Icons.money_sharp),
                     errorText: validateUnitPrice ? "Can't be Empty" : null,
                   ),
                 ),
