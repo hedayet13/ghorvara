@@ -31,6 +31,7 @@ dependencies:
   flutter_statusbarcolor:
   material_design_icons_flutter: ^4.0.5855
   intl: ^0.16.1
+  # month_picker_dialog: ^0.3.3
 
 dev_dependencies:
   flutter_test:

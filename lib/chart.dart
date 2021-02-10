@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ghorvara/currentChart.dart';
 import 'package:ghorvara/gaschart.dart';
 import 'package:intl/intl.dart';
+// import 'package:month_picker_dialog/month_picker_dialog.dart';
 // import 'package:ghorvara/monthPickChart.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -144,6 +145,7 @@ class _chartState extends State<chart> {
                           if (picked != null && picked != selectedDate)
                             setState(() {
                               selectedDate = picked;
+                              print(selectedDate);
                             });
                         },
                       ),
