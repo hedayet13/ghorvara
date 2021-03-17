@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ghorvara/Database/database.dart';
+import 'package:ghorvara/chart.dart';
 import 'package:ghorvara/data.dart';
 
 class ShowDataList extends StatefulWidget {
@@ -9,8 +10,8 @@ class ShowDataList extends StatefulWidget {
   _ShowDataListState createState() => _ShowDataListState();
 }
 
-List<Data> datas = [];
-Data currentData;
+// Future<List<Data>> datas;
+// Data currentData;
 
 class _ShowDataListState extends State<ShowDataList> {
   @override

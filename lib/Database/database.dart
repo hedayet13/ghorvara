@@ -12,8 +12,10 @@ class DatabaseProvider {
   static const String COLUMN_WATER = "water";
   static const String COLUMN_TOTAL = "total";
 
-  DatabaseProvider._();
-  static final DatabaseProvider db = DatabaseProvider._();
+  static var instance;
+
+  // DatabaseProvider._();
+  // static final DatabaseProvider db = DatabaseProvider._();
 
   Database _database;
   Future<Database> get database async {
@@ -23,10 +25,6 @@ class DatabaseProvider {
     }
     _database = await createDatabase();
     return _database;
-  }
-
-  TodoHelper() {
-    createDatabase();
   }
 
   Future<Database> createDatabase() async {
@@ -61,7 +59,7 @@ class DatabaseProvider {
       COLUMN_WATER,
       COLUMN_TOTAL
     ]);
-    List<Data> dataList = List<Data>();
+    List<Data> dataList = [];
     data.forEach((element) {
       Data data = Data.fromMap(element);
       dataList.add(data);

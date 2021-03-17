@@ -94,12 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       color: Colors.greenAccent,
                     ),
-                  ),
-                  // ignore: deprecated_member_use
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text("See Previous data"),
-                    color: Colors.white,
                   )
                 ],
               )),

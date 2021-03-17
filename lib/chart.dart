@@ -236,8 +236,35 @@ class _chartState extends State<chart> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                content: Text(
-                                    '''Number of stove = $stoveNum stove \nTotal Rent is = $sum taka '''),
+                                shape: StadiumBorder(),
+                                content: Container(
+                                  height: 100,
+                                  // width: 200,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                          '''Number of stove = $stoveNum stove \nTotal Rent is = $sum taka '''),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: FlatButton(
+                                          shape: StadiumBorder(),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            'Okey',
+                                            style:
+                                                TextStyle(color: Colors.amber),
+                                          ),
+                                          color: Colors.black,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               );
                             });
                       },
