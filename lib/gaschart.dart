@@ -5,7 +5,7 @@ bool value1 = false;
 bool value2 = false;
 bool value3 = false;
 
-var gas = 0;
+double gas = 0;
 var stoveNum = 0;
 
 final gasBillController = TextEditingController(text: "0");

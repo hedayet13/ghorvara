@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ghorvara/Database/database.dart';
 import 'package:ghorvara/currentChart.dart';
 import 'package:ghorvara/gaschart.dart';
 import 'package:intl/intl.dart';
 // import 'package:month_picker_dialog/month_picker_dialog.dart';
 // import 'package:ghorvara/monthPickChart.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:sqflite/sqflite.dart';
 
 class chart extends StatefulWidget {
   @override
@@ -19,7 +21,7 @@ class _chartState extends State<chart> {
   // bool _validateGas = false;
   bool _validatewater = false;
 
-  var rent = 0, current = 0, water = 0;
+  double rent = 0, current = 0, water = 0;
 
   double sum = 0;
   double totalCurrent = 0, currentUnit = 0;
@@ -29,18 +31,18 @@ class _chartState extends State<chart> {
 
   void addition() {
     setState(() {
-      rent = int.parse(rentController.text);
-      current = int.parse(currentBillController.text);
+      rent = double.parse(rentController.text);
+      current = double.parse(currentBillController.text);
       currentUnit = double.parse(unitPriceController.text);
       // totalCurrent = current * currentUnit;
-      gas = int.parse(gasBillController.text);
+      gas = double.parse(gasBillController.text);
       if (value1 == true) {
         gas = 925;
       }
       if (value2 == true) {
         gas = 975;
       }
-      water = int.parse(waterBillController.text);
+      water = double.parse(waterBillController.text);
       if (currentValue1 == false) {
         currentUnit = 1;
       }
@@ -206,6 +208,7 @@ class _chartState extends State<chart> {
                   Padding(
                     padding: EdgeInsets.only(top: 50),
                   ),
+
                   // ignore: deprecated_member_use
                   SizedBox(
                     height: 60,
@@ -213,7 +216,9 @@ class _chartState extends State<chart> {
                     // ignore: deprecated_member_use
                     child: RaisedButton(
                       hoverColor: Colors.black38,
-                      onPressed: () {
+                      onPressed: () async {
+                        // Database db = await DatabaseProvider.database;
+                        // int id = await db.insert();
                         setState(() {
                           rentController.text.isEmpty
                               ? _validateRent = true
@@ -231,7 +236,9 @@ class _chartState extends State<chart> {
                               ? validateUnitPrice = true
                               : validateUnitPrice = false;
                         });
+
                         addition();
+                        _save();
                         return showDialog(
                             context: context,
                             builder: (context) {
@@ -280,6 +287,12 @@ class _chartState extends State<chart> {
                       color: Colors.black,
                     ),
                   ),
+                  RaisedButton(
+                    child: Text('Read Data'),
+                    onPressed: () {
+                      _read();
+                    },
+                  )
                 ],
               ),
             ),
@@ -287,6 +300,28 @@ class _chartState extends State<chart> {
         ),
       ),
     );
+  }
+
+  _read() async {
+    DatabaseHelper helper = DatabaseHelper.instance;
+    double rowID = 1;
+    Data data = await helper.queryWord(rowID);
+    if (data == null) {
+      print('read row $rowID: empty');
+    } else {
+      print('read row $rowID: ${data.rent} ${data.total}');
+    }
+  }
+
+  _save() async {
+    //insert
+
+    Data data = Data();
+    data.rent = rent;
+    data.total = sum;
+    DatabaseHelper helper = DatabaseHelper.instance;
+    int id = await helper.insert(data);
+    print("inserted row:$id");
   }
 
   // ignore: non_constant_identifier_names

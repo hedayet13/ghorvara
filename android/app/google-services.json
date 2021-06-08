@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "288932795459",
+    "project_id": "ghorvara-c0aa4",
+    "storage_bucket": "ghorvara-c0aa4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288932795459:android:7aa465b23f920d02d2b0f6",
+        "android_client_info": {
+          "package_name": "com.example.ghorvara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288932795459-ur0u5r8g3bphvkcn2v0gqo3fk3uo8q5h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ghorvara",
+            "certificate_hash": "b511b235c6bcfa82c1911a0e767a015e336ca3fe"
+          }
+        },
+        {
+          "client_id": "288932795459-kdotrhn6r1je9lsdkdrkkooqd8jde18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYgnaqdRbKFEpyuXwuallOY0T_HwJIitM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288932795459-kdotrhn6r1je9lsdkdrkkooqd8jde18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
