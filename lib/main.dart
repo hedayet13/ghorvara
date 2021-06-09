@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ghorvara/chart.dart';
+import 'package:ghorvara/showData.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       color: Colors.greenAccent,
                     ),
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ShowChart()));
+                    },
+                    child: Text('wait'),
                   )
                 ],
               )),

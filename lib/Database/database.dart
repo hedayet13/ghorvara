@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ghorvara/Database/data.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -11,14 +9,14 @@ import 'package:sqflite/sqlite_api.dart';
 final String Tablewords = 'words';
 final String COLUMN_ID = "id";
 final String COLUMN_RENT = "houseRent";
-// final String COLUMN_ELECTRICITY = "electricity";
-// final String COLUMN_GAS = "gas";
-// final String COLUMN_WATER = "water";
+final String COLUMN_ELECTRICITY = "current";
+final String COLUMN_GAS = "gas";
+final String COLUMN_WATER = "water";
 final String COLUMN_TOTAL = "total";
 
 class Data {
   int id;
-  double rent;
+  double rent, gas, current, water;
   double total;
 
   Data();
@@ -26,11 +24,20 @@ class Data {
   Data.fromMap(Map<String, dynamic> map) {
     id = map[COLUMN_ID];
     rent = map[COLUMN_RENT];
+    current = map[COLUMN_ELECTRICITY];
+    gas = map[COLUMN_GAS];
+    water = map[COLUMN_WATER];
     total = map[COLUMN_TOTAL];
   }
 
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{COLUMN_RENT: rent, COLUMN_TOTAL: total};
+    var map = <String, dynamic>{
+      COLUMN_RENT: rent,
+      COLUMN_TOTAL: total,
+      COLUMN_ELECTRICITY: current,
+      COLUMN_GAS: gas,
+      COLUMN_WATER: water
+    };
     if (id != null) {
       map[COLUMN_ID] = id;
     }
@@ -64,6 +71,9 @@ class DatabaseHelper {
       CREATE TABLE $Tablewords (
         $COLUMN_ID INTEGER PRIMARY KEY,
         $COLUMN_RENT DOUBLE NOT NULL,
+        $COLUMN_ELECTRICITY DOUBLE NOT NULL,
+        $COLUMN_GAS DOUBLE NOT NULL,
+        $COLUMN_WATER DOUBLE NOT NULL,
         $COLUMN_TOTAL DOUBLE NOT NULL
       )''');
   }
@@ -77,11 +87,29 @@ class DatabaseHelper {
   Future<Data> queryWord(double id) async {
     Database db = await database;
     List<Map> maps = await db.query(Tablewords,
-        columns: [COLUMN_ID, COLUMN_RENT, COLUMN_TOTAL],
+        columns: [
+          COLUMN_ID,
+          COLUMN_RENT,
+          COLUMN_ELECTRICITY,
+          COLUMN_GAS,
+          COLUMN_WATER,
+          COLUMN_TOTAL
+        ],
         where: '$COLUMN_ID = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
       return Data.fromMap(maps.first);
+    }
+    return null;
+  }
+
+  Future<List<Data>> queryAllWords() async {
+    Database db = await database;
+    List<Map> maps = await db.query(Tablewords);
+    if (maps.length > 0) {
+      List<Data> words = [];
+      maps.forEach((map) => words.add(Data.fromMap(map)));
+      return words;
     }
     return null;
   }

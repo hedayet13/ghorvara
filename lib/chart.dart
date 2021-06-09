@@ -303,13 +303,22 @@ class _chartState extends State<chart> {
   }
 
   _read() async {
+    // DatabaseHelper helper = DatabaseHelper.instance;
+    // double rowID = 1;
+    // Data data = await helper.queryWord(rowID);
+    // if (data == null) {
+    //   print('read row $rowID: empty');
+    // } else {
+    //   print('read row $rowID: ${data.rent} ${data.total}');
+    // }
+
     DatabaseHelper helper = DatabaseHelper.instance;
-    double rowID = 1;
-    Data data = await helper.queryWord(rowID);
-    if (data == null) {
-      print('read row $rowID: empty');
-    } else {
-      print('read row $rowID: ${data.rent} ${data.total}');
+    final words = await helper.queryAllWords();
+    if (words != null) {
+      words.forEach((word) {
+        print(
+            'row ${word.id}: ${word.rent}  ${word.current} ${word.gas} ${word.water} ${word.total}');
+      });
     }
   }
 
@@ -318,6 +327,9 @@ class _chartState extends State<chart> {
 
     Data data = Data();
     data.rent = rent;
+    data.current = totalCurrent;
+    data.gas = gas;
+    data.water = water;
     data.total = sum;
     DatabaseHelper helper = DatabaseHelper.instance;
     int id = await helper.insert(data);
