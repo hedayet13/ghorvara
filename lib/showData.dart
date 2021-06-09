@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'Database/database.dart';
+import 'package:ghorvara/Database/database.dart';
 
 class ShowChart extends StatefulWidget {
   ShowChart({Key key}) : super(key: key);
@@ -10,6 +9,19 @@ class ShowChart extends StatefulWidget {
 }
 
 class _ShowChartState extends State<ShowChart> {
+  // var list = List();
+  // Future<List> dataRead() async {
+  //   DatabaseHelper helper = DatabaseHelper.instance;
+  //   final words = await helper.queryAllWords();
+  //   if (words != null) {
+  //     words.forEach((word) {
+  //       list.add([
+  //         '${word.id}:  ${word.rent}  ${word.current} ${word.gas} ${word.water} ${word.total}  '
+  //       ]);
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,8 +30,24 @@ class _ShowChartState extends State<ShowChart> {
             title: Text("Chart"),
           ),
           body: Column(
-            children: [Text('')],
+            children: [
+              Text('heres'),
+              RaisedButton(onPressed: () {
+                dataRead();
+              })
+            ],
           )),
     );
+  }
+
+  dataRead() async {
+    DatabaseHelper helper = DatabaseHelper.instance;
+    final words = await helper.datas();
+    if (words != null) {
+      words.forEach((word) {
+        print(word);
+      });
+    }
+    // print(words);
   }
 }

@@ -19,7 +19,7 @@ class Data {
   double rent, gas, current, water;
   double total;
 
-  Data();
+  Data({this.id, this.rent, this.gas, this.current, this.water, this.total});
 
   Data.fromMap(Map<String, dynamic> map) {
     id = map[COLUMN_ID];
@@ -112,6 +112,20 @@ class DatabaseHelper {
       return words;
     }
     return null;
+  }
+
+  Future<List<Data>> datas() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(Tablewords);
+    return List.generate(maps.length, (i) {
+      return Data(
+          id: maps[i][COLUMN_ID],
+          rent: maps[i][COLUMN_RENT],
+          gas: maps[i][COLUMN_GAS],
+          current: maps[i][COLUMN_ELECTRICITY],
+          water: maps[i][COLUMN_WATER],
+          total: maps[i][COLUMN_TOTAL]);
+    });
   }
 }
 
